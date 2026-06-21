@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwiftURL – Shorten Links, Expand Reach</title>
+  <meta name="description" content="SwiftURL — The fastest, most elegant URL shortener. Create, manage, and share short links in seconds." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Toast Notifications -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- ===================== LANDING PAGE ===================== -->
+  <div id="page-landing" class="page active">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <span class="brand-icon">⚡</span>
+        <span class="brand-name">SwiftURL</span>
+      </div>
+      <div class="nav-actions">
+        <button id="nav-login-btn" class="btn btn-ghost" onclick="showPage('auth','login')">Login</button>
+        <button id="nav-signup-btn" class="btn btn-primary" onclick="showPage('auth','signup')">Get Started →</button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-orb orb-3"></div>
+      <div class="hero-grid"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-pulse"></span>
+          Fast &amp; Secure URL Shortener
+        </div>
+        <h1 class="hero-title">
+          Shorten Links,<br />
+          <span class="gradient-text">Expand Reach</span>
+        </h1>
+        <p class="hero-subtitle">
+          Transform long, messy URLs into clean, memorable links.
+          Manage all your links in one beautiful dashboard.
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-lg" onclick="showPage('auth','signup')">
+            Start for Free <span class="btn-arrow">→</span>
+          </button>
+          <button class="btn btn-outline btn-lg" onclick="showPage('auth','login')">
+            Sign In
+          </button>
+        </div>
+
+        <div class="hero-demo">
+          <div class="demo-pill">🔗 https://very-long-website.com/super/long/path</div>
+          <div class="demo-arrow">→</div>
+          <div class="demo-pill demo-short">⚡ swifturl.io/<span class="demo-code">my-link</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="features-inner">
+        <p class="section-eyebrow">Why SwiftURL?</p>
+        <h2 class="section-title">Everything you need,<br/>nothing you don't</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon-wrap">⚡</div>
+            <h3>Lightning Fast</h3>
+            <p>Shorten any URL in milliseconds. Powered by a high-performance Node.js backend with PostgreSQL.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-wrap">🔐</div>
+            <h3>Secure by Default</h3>
+            <p>JWT-based authentication ensures only you can view and manage your personal link collection.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-wrap">✏️</div>
+            <h3>Custom Codes</h3>
+            <p>Set memorable, branded short codes like <code>/my-brand</code> or <code>/promo-2024</code>.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-wrap">📋</div>
+            <h3>Full Management</h3>
+            <p>View all links in one place. Copy, share, or delete them instantly from your dashboard.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="nav-brand">
+          <span class="brand-icon">⚡</span>
+          <span class="brand-name">SwiftURL</span>
+        </div>
+        <p class="footer-text">Built with Node.js · Express · PostgreSQL · Drizzle ORM</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===================== AUTH PAGE ===================== -->
+  <div id="page-auth" class="page">
+    <div class="hero-orb orb-1" style="opacity:0.2"></div>
+    <div class="hero-orb orb-2" style="opacity:0.15"></div>
+
+    <div class="auth-container">
+      <div class="auth-card">
+        <button class="auth-back" onclick="showPage('landing')" aria-label="Back to home">
+          ← Back
+        </button>
+
+        <div class="auth-logo">
+          <span class="brand-icon">⚡</span>
+          <span class="brand-name">SwiftURL</span>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button id="tab-login" class="auth-tab active" role="tab" onclick="switchAuthTab('login')">Login</button>
+          <button id="tab-signup" class="auth-tab" role="tab" onclick="switchAuthTab('signup')">Sign Up</button>
+          <div class="tab-slider" id="tab-slider"></div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="form-login" class="auth-form" onsubmit="handleLogin(event)" novalidate>
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="btn-login">
+            <span class="btn-text">Sign In</span>
+            <span class="btn-loader hidden"><span class="spinner-sm"></span>Signing in…</span>
+          </button>
+          <p class="auth-switch">No account? <a onclick="switchAuthTab('signup')">Create one free</a></p>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="form-signup" class="auth-form hidden" onsubmit="handleSignup(event)" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="signup-firstname">First Name</label>
+              <input type="text" id="signup-firstname" placeholder="John" autocomplete="given-name" required />
+            </div>
+            <div class="form-group">
+              <label for="signup-lastname">Last Name <span class="optional">(optional)</span></label>
+              <input type="text" id="signup-lastname" placeholder="Doe" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" placeholder="At least 3 characters" autocomplete="new-password" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="btn-signup">
+            <span class="btn-text">Create Account</span>
+            <span class="btn-loader hidden"><span class="spinner-sm"></span>Creating…</span>
+          </button>
+          <p class="auth-switch">Have an account? <a onclick="switchAuthTab('login')">Sign in</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DASHBOARD PAGE ===================== -->
+  <div id="page-dashboard" class="page">
+    <nav class="navbar navbar-dash">
+      <div class="nav-brand">
+        <span class="brand-icon">⚡</span>
+        <span class="brand-name">SwiftURL</span>
+      </div>
+      <div class="nav-user">
+        <div class="user-avatar" id="user-avatar">U</div>
+        <span class="user-email" id="user-email-display">user@email.com</span>
+        <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Logout</button>
+      </div>
+    </nav>
+
+    <main class="dashboard">
+
+      <!-- Welcome Banner -->
+      <div class="welcome-banner">
+        <div>
+          <h1 class="welcome-title">Welcome back! 👋</h1>
+          <p class="welcome-sub">Manage your short links from here.</p>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon-wrap">🔗</div>
+          <div>
+            <div class="stat-number" id="stat-total">–</div>
+            <div class="stat-label">Total Links</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap">⚡</div>
+          <div>
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Redirects</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap">🌐</div>
+          <div>
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Uptime</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shorten Card -->
+      <div class="card shorten-card">
+        <h2 class="card-title">✂️ Shorten a URL</h2>
+        <form id="form-shorten" onsubmit="handleShorten(event)" novalidate>
+          <div class="shorten-inputs">
+            <div class="form-group fg-grow">
+              <label for="shorten-url">Destination URL</label>
+              <input type="url" id="shorten-url" placeholder="https://your-very-long-url.com/…" required />
+            </div>
+            <div class="form-group">
+              <label for="shorten-code">Custom Code <span class="optional">(optional)</span></label>
+              <input type="text" id="shorten-code" placeholder="my-brand" pattern="[a-zA-Z0-9\-_]+" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" id="btn-shorten">
+            <span class="btn-text">⚡ Shorten</span>
+            <span class="btn-loader hidden"><span class="spinner-sm"></span>Shortening…</span>
+          </button>
+        </form>
+
+        <div id="shorten-result" class="shorten-result hidden">
+          <div class="result-label">🎉 Your link is ready! Click it to test the redirect.</div>
+          <div class="result-row">
+            <a id="result-url" href="#" target="_blank" class="result-link"></a>
+            <button class="btn btn-copy-result" onclick="copyResult()">📋 Copy</button>
+            <a id="result-open" href="#" target="_blank" class="btn btn-open-browser">🌐 Open ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- URLs Table Card -->
+      <div class="card urls-card">
+        <div class="card-header-row">
+          <h2 class="card-title">📋 Your Links</h2>
+          <button class="btn btn-ghost btn-sm" onclick="loadUrls()" id="btn-refresh">↻ Refresh</button>
+        </div>
+
+        <div id="urls-loading" class="state-box">
+          <div class="spinner"></div>
+          <p>Loading your links…</p>
+        </div>
+
+        <div id="urls-empty" class="state-box hidden">
+          <div class="empty-icon">🔗</div>
+          <h3>No links yet</h3>
+          <p>Shorten your first URL above to get started!</p>
+        </div>
+
+        <div id="urls-table-wrapper" class="hidden">
+          <table class="urls-table" aria-label="Shortened URLs">
+            <thead>
+              <tr>
+                <th>Short URL</th>
+                <th>Original URL</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="urls-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===================== DELETE CONFIRMATION MODAL ===================== -->
+  <div id="modal-delete" class="modal-overlay hidden" onclick="closeDeleteModal(event)">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-icon-wrap">🗑️</div>
+      <h3 class="modal-title" id="modal-title">Delete this link?</h3>
+      <p class="modal-body">
+        This short link will be <strong>permanently removed</strong>.<br/>This action cannot be undone.
+      </p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeDeleteModal()">Cancel</button>
+        <button class="btn btn-danger" id="btn-confirm-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
