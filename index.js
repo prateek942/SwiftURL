@@ -10,8 +10,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
 const app  = express();
-const PORT = process.env.PORT ?? 8000;
-const HOST = process.env.HOST ?? '0.0.0.0'; // Bind to all interfaces so external/mobile traffic can reach the server
+const PORT = parseInt(process.env.PORT) || 8000;  // Railway injects PORT as a string — parseInt is required
+const HOST = '0.0.0.0'; // Always bind to all interfaces for Railway / external traffic
 
 // ── Middleware ──────────────────────────────────────────────────
 app.use(express.json());
