@@ -11,6 +11,7 @@ const __dirname  = path.dirname(__filename);
 
 const app  = express();
 const PORT = process.env.PORT ?? 8000;
+const HOST = process.env.HOST ?? '0.0.0.0'; // Bind to all interfaces so external/mobile traffic can reach the server
 
 // ── Middleware ──────────────────────────────────────────────────
 app.use(express.json());
@@ -26,6 +27,7 @@ app.use('/user', userRouter);
 app.use('/',     urlRouter);
 
 // ── Start ───────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`✅  Server running on http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`✅  Server running on http://${HOST}:${PORT}`);
+  console.log(`🌐  Accessible on your local network — find your machine's IP with 'ipconfig' (Windows) or 'ifconfig' (Linux/Mac)`);
 });
