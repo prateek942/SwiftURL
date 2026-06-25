@@ -60,13 +60,13 @@ Then open http://localhost:8000
 
 ## Deploying
 
-I used Railway + Neon for this:
+I used Render + Neon for this:
 
 1. Set up a Postgres DB on [Neon](https://neon.tech) and grab the connection string
 2. Run `npm run db:push` locally to create the tables
 3. Push to GitHub
-4. On [Railway](https://railway.app), deploy from your repo and set these env vars:
+4. On [Render](https://render.com), create a new Web Service from your repo and set these env vars:
    - `DATABASE_URL` — your Neon connection string
    - `JWT_SECRET` — some random secret
-   - `PORT` — `8000`
-5. Generate a domain in Railway's settings and you're live
+5. Render picks up the `render.yaml` config automatically and you're live
+
