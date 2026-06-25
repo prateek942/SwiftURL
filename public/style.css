@@ -1,11 +1,7 @@
-/* ======================================================
-   SwiftURL — Premium Dark Theme
-   ====================================================== */
-
-/* ---------- Google Fonts ---------- */
+/* fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-/* ---------- CSS Variables ---------- */
+/* variables */
 :root {
   --bg: #06060f;
   --bg-2: #0c0c1a;
@@ -34,7 +30,7 @@
   --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* ---------- Reset ---------- */
+/* reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -49,7 +45,6 @@ a { cursor: pointer; text-decoration: none; }
 button { cursor: pointer; font-family: inherit; }
 input { font-family: inherit; }
 
-/* ---------- Utilities ---------- */
 .hidden { display: none !important; }
 .gradient-text {
   background: var(--gradient);
@@ -66,7 +61,7 @@ input { font-family: inherit; }
 .optional { font-size: 11px; color: var(--text-3); font-weight: 400; }
 .fg-grow { flex: 1; }
 
-/* ---------- Page System ---------- */
+/* pages */
 .page {
   display: none;
   min-height: 100vh;
@@ -75,7 +70,7 @@ input { font-family: inherit; }
 }
 .page.active { display: block; }
 
-/* ---------- Navbar ---------- */
+/* navbar */
 .navbar {
   display: flex;
   align-items: center;
@@ -134,7 +129,7 @@ input { font-family: inherit; }
   white-space: nowrap;
 }
 
-/* ---------- Buttons ---------- */
+/* buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -209,8 +204,7 @@ input { font-family: inherit; }
   transform: translateY(-1px);
 }
 
-
-/* ---------- Hero Orbs ---------- */
+/* hero orbs */
 .hero-orb {
   position: absolute;
   border-radius: 50%;
@@ -259,7 +253,7 @@ input { font-family: inherit; }
   pointer-events: none;
 }
 
-/* ---------- Hero Section ---------- */
+/* hero */
 .hero {
   position: relative;
   min-height: calc(100vh - 73px);
@@ -349,7 +343,7 @@ input { font-family: inherit; }
 .demo-code { color: var(--cyan-light); }
 .demo-arrow { color: var(--text-3); font-size: 20px; }
 
-/* ---------- Features ---------- */
+/* features */
 .features {
   padding: 100px 24px;
   background: linear-gradient(180deg, transparent 0%, rgba(124,58,237,0.03) 50%, transparent 100%);
@@ -418,7 +412,7 @@ input { font-family: inherit; }
   font-family: 'Courier New', monospace;
 }
 
-/* ---------- Footer ---------- */
+/* footer */
 .footer {
   border-top: 1px solid var(--border);
   padding: 28px 40px;
@@ -434,13 +428,12 @@ input { font-family: inherit; }
 }
 .footer-text { font-size: 13px; color: var(--text-3); }
 
-/* ---------- Auth Page ---------- */
+/* auth */
 #page-auth {
   background: var(--bg);
   align-items: center;
   justify-content: center;
 }
-/* Only flex when this page is active — avoids specificity override of .page { display:none } */
 #page-auth.active {
   display: flex;
 }
@@ -513,7 +506,7 @@ input { font-family: inherit; }
 }
 .tab-slider.right { transform: translateX(100%); }
 
-/* ---------- Forms ---------- */
+/* forms */
 .auth-form { display: flex; flex-direction: column; gap: 18px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-group { display: flex; flex-direction: column; gap: 8px; }
@@ -553,7 +546,7 @@ input { font-family: inherit; }
 }
 .auth-switch a:hover { text-decoration: underline; }
 
-/* ---------- Dashboard Layout ---------- */
+/* dashboard */
 .dashboard {
   max-width: 1140px;
   margin: 0 auto;
@@ -570,7 +563,7 @@ input { font-family: inherit; }
 .welcome-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
 .welcome-sub { font-size: 15px; color: var(--text-2); margin-top: 4px; }
 
-/* ---------- Stats ---------- */
+/* stats */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -618,7 +611,7 @@ input { font-family: inherit; }
   letter-spacing: 0.1em;
 }
 
-/* ---------- Cards ---------- */
+/* cards */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -639,7 +632,7 @@ input { font-family: inherit; }
 }
 .card-header-row .card-title { margin-bottom: 0; }
 
-/* ---------- Shorten Card ---------- */
+/* shorten card */
 .shorten-card {
   background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box,
               var(--gradient) border-box;
@@ -683,7 +676,7 @@ input { font-family: inherit; }
 }
 .result-link:hover { color: #67e8f9; text-decoration: underline; }
 
-/* ---------- URLs Table ---------- */
+/* urls table */
 .urls-card { padding: 28px 32px; }
 .urls-table {
   width: 100%;
@@ -776,8 +769,7 @@ input { font-family: inherit; }
 }
 .btn-action-open:hover { background: rgba(124,58,237,0.22); transform: scale(1.1); }
 
-
-/* ---------- State Boxes ---------- */
+/* loading / empty states */
 .state-box {
   display: flex;
   flex-direction: column;
@@ -792,7 +784,7 @@ input { font-family: inherit; }
 .state-box h3 { font-size: 18px; font-weight: 700; color: var(--text-2); }
 .state-box p { font-size: 14px; }
 
-/* ---------- Spinners ---------- */
+/* spinners */
 .spinner {
   width: 32px; height: 32px;
   border: 3px solid rgba(255,255,255,0.08);
@@ -811,7 +803,7 @@ input { font-family: inherit; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ---------- Toast Notifications ---------- */
+/* toasts */
 #toast-container {
   position: fixed;
   bottom: 28px; right: 28px;
@@ -855,18 +847,14 @@ input { font-family: inherit; }
 .toast-success { border-color: rgba(16,185,129,0.2); }
 .toast-error   { border-color: rgba(239,68,68,0.2); }
 
-/* ---------- Loader in btn ---------- */
 .btn-loader {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-/* ======================================================
-   RESPONSIVE — Mobile-First
-   ====================================================== */
+/* responsive */
 
-/* ---- Table data-label headings (hidden on desktop) ---- */
 .urls-table td::before {
   display: none;
   content: attr(data-label);
@@ -878,7 +866,6 @@ input { font-family: inherit; }
   margin-bottom: 4px;
 }
 
-/* ---- 900px: tighten layout ---- */
 @media (max-width: 900px) {
   .navbar { padding: 14px 24px; }
   .user-email { display: none; }
@@ -886,14 +873,11 @@ input { font-family: inherit; }
   .features-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ---- 768px: tablet ---- */
 @media (max-width: 768px) {
-  /* Navbar */
   .navbar { padding: 13px 18px; }
   .brand-name { font-size: 18px; }
   .nav-actions .btn-lg { padding: 10px 16px; font-size: 13px; }
 
-  /* Hero */
   .hero { padding: 50px 20px 60px; min-height: 85vh; }
   .hero-title { letter-spacing: -1px; }
   .hero-cta {
@@ -907,53 +891,43 @@ input { font-family: inherit; }
   }
   .hero-cta .btn { justify-content: center; }
 
-  /* Features */
   .features { padding: 60px 20px; }
   .features-grid { grid-template-columns: 1fr; gap: 14px; }
   .section-title { font-size: clamp(24px, 6vw, 36px); margin-bottom: 40px; }
 
-  /* Footer */
   .footer { padding: 24px 20px; }
   .footer-inner { flex-direction: column; text-align: center; gap: 8px; }
 
-  /* Auth */
   .auth-card { padding: 28px 20px; }
   .form-row { grid-template-columns: 1fr; gap: 14px; }
   .auth-container { padding: 16px; margin: 24px auto; }
 
-  /* Dashboard */
   .dashboard { padding: 18px 14px 40px; gap: 14px; }
   .welcome-title { font-size: 22px; }
   .welcome-sub { font-size: 14px; }
   .card { padding: 20px; }
   .urls-card { padding: 18px; }
 
-  /* Stats — keep 3 across but compact */
   .stats-grid { gap: 10px; }
   .stat-card { padding: 16px 12px; gap: 12px; }
   .stat-icon-wrap { width: 44px; height: 44px; font-size: 20px; border-radius: 11px; flex-shrink: 0; }
   .stat-number { font-size: 22px; }
   .stat-label { font-size: 10px; }
 
-  /* Shorten form */
   .shorten-inputs { flex-direction: column; gap: 12px; }
   .shorten-inputs .form-group { min-width: 0; width: 100%; }
   #btn-shorten { width: 100%; justify-content: center; }
 
-  /* Result */
   .result-row { flex-direction: column; align-items: stretch; gap: 10px; }
   .result-link { font-size: 14px; min-width: 0; }
   .btn-copy-result,
   .btn-open-browser { justify-content: center; }
 
-  /* Table: hide date column */
   .urls-table th:nth-child(3),
   .urls-table td:nth-child(3) { display: none; }
 }
 
-/* ---- 600px: phone — table → cards ---- */
 @media (max-width: 600px) {
-  /* Stats: compact 3-in-a-row */
   .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .stat-card {
     flex-direction: column;
@@ -966,7 +940,6 @@ input { font-family: inherit; }
   .stat-number { font-size: 18px; }
   .stat-label { font-size: 9px; }
 
-  /* Table → card layout */
   .urls-table thead { display: none; }
   .urls-table,
   .urls-table tbody { display: block; width: 100%; }
@@ -991,80 +964,64 @@ input { font-family: inherit; }
     border: none;
     text-align: left;
   }
-  /* Show data-label headings inside card rows */
   .urls-table td::before { display: block; }
 
-  /* Actions row at the bottom with a separator */
   .urls-table td:last-child {
     padding-top: 12px;
     margin-top: 10px;
     border-top: 1px solid var(--border);
   }
-  .urls-table td:last-child::before { display: none; } /* no label for actions */
+  .urls-table td:last-child::before { display: none; }
 
-  /* Wider touch targets for actions */
   .btn-action { width: 42px; height: 42px; font-size: 18px; }
   .actions { gap: 10px; }
 
-  /* URL cells */
   .url-original { max-width: 100%; white-space: normal; word-break: break-all; }
   .short-link { font-size: 13px; }
 
-  /* Card title */
   .card-title { font-size: 16px; }
   .card-header-row { margin-bottom: 16px; }
 }
 
-/* ---- 480px: small phone ---- */
 @media (max-width: 480px) {
-  /* Navbar */
   .navbar { padding: 11px 14px; }
   .brand-icon { font-size: 18px; }
   .brand-name { font-size: 16px; }
   .btn-sm { padding: 6px 11px; font-size: 12px; }
 
-  /* Hero */
   .hero { padding: 40px 16px 50px; }
   .hero-badge { font-size: 11px; padding: 5px 11px; }
   .hero-demo { display: none; }
   .hero-cta { max-width: 260px; }
 
-  /* Auth */
   .auth-container { padding: 12px; margin: 16px auto; }
   .auth-card { padding: 24px 16px; border-radius: 20px; }
 
-  /* Dashboard */
   .dashboard { padding: 14px 10px 36px; }
   .card { padding: 16px; }
   .urls-card { padding: 14px; }
   .welcome-title { font-size: 20px; }
 
-  /* Form inputs — full width, comfortable touch size */
-  .form-group input { padding: 13px 14px; font-size: 16px; } /* 16px prevents iOS zoom */
+  .form-group input { padding: 13px 14px; font-size: 16px; }
 
-  /* Shorten button */
   #btn-shorten { padding: 14px; font-size: 15px; }
 
-  /* Modal */
   .modal-card { padding: 28px 18px; border-radius: 20px; }
   .modal-actions { flex-direction: column; gap: 10px; }
   .modal-actions .btn { width: 100%; justify-content: center; }
   .modal-icon-wrap { font-size: 36px; }
 
-  /* Toasts */
   #toast-container { bottom: 16px; right: 16px; left: 16px; }
   .toast { min-width: 0; width: 100%; max-width: 100%; }
 }
 
-/* ---- 360px: very small phone ---- */
 @media (max-width: 360px) {
   .stats-grid { grid-template-columns: 1fr; gap: 8px; }
   .stat-card { flex-direction: row; text-align: left; }
   .hero-title { font-size: 34px; letter-spacing: -0.5px; }
 }
 
-
-/* ---------- Danger Button ---------- */
+/* danger button */
 .btn-danger {
   background: rgba(239,68,68,0.15);
   color: #f87171;
@@ -1076,7 +1033,7 @@ input { font-family: inherit; }
   transform: translateY(-1px);
 }
 
-/* ---------- Delete Confirmation Modal ---------- */
+/* delete modal */
 .modal-overlay {
   position: fixed;
   inset: 0;

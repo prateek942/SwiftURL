@@ -12,10 +12,10 @@
 </head>
 <body>
 
-  <!-- Toast Notifications -->
+  <!-- toasts -->
   <div id="toast-container" aria-live="polite"></div>
 
-  <!-- ===================== LANDING PAGE ===================== -->
+  <!-- landing page -->
   <div id="page-landing" class="page active">
     <nav class="navbar">
       <div class="nav-brand">
@@ -104,7 +104,7 @@
     </footer>
   </div>
 
-  <!-- ===================== AUTH PAGE ===================== -->
+  <!-- auth page -->
   <div id="page-auth" class="page">
     <div class="hero-orb orb-1" style="opacity:0.2"></div>
     <div class="hero-orb orb-2" style="opacity:0.15"></div>
@@ -126,7 +126,6 @@
           <div class="tab-slider" id="tab-slider"></div>
         </div>
 
-        <!-- Login Form -->
         <form id="form-login" class="auth-form" onsubmit="handleLogin(event)" novalidate>
           <div class="form-group">
             <label for="login-email">Email</label>
@@ -143,7 +142,6 @@
           <p class="auth-switch">No account? <a onclick="switchAuthTab('signup')">Create one free</a></p>
         </form>
 
-        <!-- Signup Form -->
         <form id="form-signup" class="auth-form hidden" onsubmit="handleSignup(event)" novalidate>
           <div class="form-row">
             <div class="form-group">
@@ -173,7 +171,7 @@
     </div>
   </div>
 
-  <!-- ===================== DASHBOARD PAGE ===================== -->
+  <!-- dashboard -->
   <div id="page-dashboard" class="page">
     <nav class="navbar navbar-dash">
       <div class="nav-brand">
@@ -189,7 +187,6 @@
 
     <main class="dashboard">
 
-      <!-- Welcome Banner -->
       <div class="welcome-banner">
         <div>
           <h1 class="welcome-title">Welcome back! 👋</h1>
@@ -197,7 +194,6 @@
         </div>
       </div>
 
-      <!-- Stats Row -->
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-icon-wrap">🔗</div>
@@ -222,7 +218,6 @@
         </div>
       </div>
 
-      <!-- Shorten Card -->
       <div class="card shorten-card">
         <h2 class="card-title">✂️ Shorten a URL</h2>
         <form id="form-shorten" onsubmit="handleShorten(event)" novalidate>
@@ -252,7 +247,6 @@
         </div>
       </div>
 
-      <!-- URLs Table Card -->
       <div class="card urls-card">
         <div class="card-header-row">
           <h2 class="card-title">📋 Your Links</h2>
@@ -288,7 +282,7 @@
     </main>
   </div>
 
-  <!-- ===================== DELETE CONFIRMATION MODAL ===================== -->
+  <!-- delete modal -->
   <div id="modal-delete" class="modal-overlay hidden" onclick="closeDeleteModal(event)">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="modal-icon-wrap">🗑️</div>

@@ -9,7 +9,6 @@ import { eq, and } from "drizzle-orm";
 
 const router = express.Router();
 
-
 router.post('/shorten',ensureAthenticated, async (req, res) => {
 
     const validationResult = await shortenPostRequestBodySchema.safeParseAsync(req.body);

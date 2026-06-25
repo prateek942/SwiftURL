@@ -1,20 +1,12 @@
-/* =================================================================
-   SwiftURL — Frontend Application Logic
-   ================================================================= */
+// app state
+const API_BASE = '';
 
-const API_BASE = '';   // Same origin — served by Express at :8000
-
-// ────────────────────────────────────────────────────────────────
-// State
-// ────────────────────────────────────────────────────────────────
 let authToken      = localStorage.getItem('swifturl_token')  || null;
 let currentEmail   = localStorage.getItem('swifturl_email')  || '';
 let lastShortened  = '';
-let pendingDeleteId = null;  // holds the UUID to delete when modal is confirmed
+let pendingDeleteId = null;
 
-// ────────────────────────────────────────────────────────────────
-// Page Navigation
-// ────────────────────────────────────────────────────────────────
+// page switching
 function showPage(page, tab) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const el = document.getElementById(`page-${page}`);
@@ -26,9 +18,6 @@ function showPage(page, tab) {
   if (page === 'dashboard') { updateUserDisplay(); loadUrls(); }
 }
 
-// ────────────────────────────────────────────────────────────────
-// Auth Tab Switch
-// ────────────────────────────────────────────────────────────────
 function switchAuthTab(tab) {
   const loginForm  = document.getElementById('form-login');
   const signupForm = document.getElementById('form-signup');
@@ -51,25 +40,19 @@ function switchAuthTab(tab) {
   }
 }
 
-// ────────────────────────────────────────────────────────────────
-// API Helper
-// ────────────────────────────────────────────────────────────────
+// api helper — adds auth token automatically
 async function apiFetch(path, options = {}) {
   const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
   if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
   const res  = await fetch(`${API_BASE}${path}`, { ...options, headers });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    // Extract a readable error message
     const msg = data.error?.message || data.error || `Request failed (${res.status})`;
     throw new Error(msg);
   }
   return data;
 }
 
-// ────────────────────────────────────────────────────────────────
-// Login
-// ────────────────────────────────────────────────────────────────
 async function handleLogin(e) {
   e.preventDefault();
   const email    = document.getElementById('login-email').value.trim();
@@ -97,9 +80,6 @@ async function handleLogin(e) {
   }
 }
 
-// ────────────────────────────────────────────────────────────────
-// Signup
-// ────────────────────────────────────────────────────────────────
 async function handleSignup(e) {
   e.preventDefault();
   const firstname = document.getElementById('signup-firstname').value.trim();
@@ -125,9 +105,6 @@ async function handleSignup(e) {
   }
 }
 
-// ────────────────────────────────────────────────────────────────
-// Logout
-// ────────────────────────────────────────────────────────────────
 function handleLogout() {
   authToken = null;
   currentEmail = '';
@@ -137,9 +114,6 @@ function handleLogout() {
   showPage('landing');
 }
 
-// ────────────────────────────────────────────────────────────────
-// Shorten URL
-// ────────────────────────────────────────────────────────────────
 async function handleShorten(e) {
   e.preventDefault();
   const url  = document.getElementById('shorten-url').value.trim();
@@ -167,7 +141,6 @@ async function handleShorten(e) {
     resultLink.textContent = shortUrl;
     if (resultOpen) { resultOpen.href = shortUrl; }
     resultEl.classList.remove('hidden');
-    // Scroll to the result so user sees it immediately
     resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     document.getElementById('form-shorten').reset();
@@ -180,9 +153,7 @@ async function handleShorten(e) {
   }
 }
 
-// ────────────────────────────────────────────────────────────────
-// Load & Render URLs
-// ────────────────────────────────────────────────────────────────
+// fetch and render the user's urls
 async function loadUrls() {
   const elLoading = document.getElementById('urls-loading');
   const elEmpty   = document.getElementById('urls-empty');
@@ -198,7 +169,6 @@ async function loadUrls() {
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
 
-    // Update stat
     const statEl = document.getElementById('stat-total');
     if (statEl) animateCount(statEl, urls.length);
 
@@ -266,16 +236,13 @@ function renderTable(urls) {
   });
 }
 
-// ────────────────────────────────────────────────────────────────
-// Delete Modal
-// ────────────────────────────────────────────────────────────────
+// delete modal
 function openDeleteModal(id) {
   pendingDeleteId = id;
   document.getElementById('modal-delete').classList.remove('hidden');
 }
 
 function closeDeleteModal(event) {
-  // Allow closing by clicking the backdrop (not the card itself)
   if (event && event.target !== event.currentTarget) return;
   pendingDeleteId = null;
   document.getElementById('modal-delete').classList.add('hidden');
@@ -310,9 +277,6 @@ async function confirmDelete() {
   }
 }
 
-// ────────────────────────────────────────────────────────────────
-// Delete URL — opens the modal
-// ────────────────────────────────────────────────────────────────
 function deleteUrl(id) {
   openDeleteModal(id);
 }
@@ -331,14 +295,12 @@ function checkEmpty() {
   }
 }
 
-// ────────────────────────────────────────────────────────────────
-// Copy
-// ────────────────────────────────────────────────────────────────
+// clipboard
 function copyUrl(url) {
   navigator.clipboard.writeText(url)
     .then(() => showToast('Copied to clipboard! 📋', 'success'))
     .catch(() => {
-      // Fallback for older browsers
+      // fallback for older browsers
       const inp = document.createElement('input');
       inp.value = url;
       document.body.appendChild(inp);
@@ -353,9 +315,6 @@ function copyResult() {
   if (lastShortened) copyUrl(lastShortened);
 }
 
-// ────────────────────────────────────────────────────────────────
-// User Display
-// ────────────────────────────────────────────────────────────────
 function updateUserDisplay() {
   const emailEl  = document.getElementById('user-email-display');
   const avatarEl = document.getElementById('user-avatar');
@@ -363,9 +322,7 @@ function updateUserDisplay() {
   if (avatarEl) avatarEl.textContent = (currentEmail[0] || 'U').toUpperCase();
 }
 
-// ────────────────────────────────────────────────────────────────
-// Helpers
-// ────────────────────────────────────────────────────────────────
+// ui helpers
 function setBtnLoading(btnId, loading) {
   const btn    = document.getElementById(btnId);
   if (!btn) return;
@@ -420,15 +377,11 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// ────────────────────────────────────────────────────────────────
-// Init — check saved token on load
-// ────────────────────────────────────────────────────────────────
+// boot up
 function init() {
-  // Wire up the delete confirm button
   const confirmBtn = document.getElementById('btn-confirm-delete');
   if (confirmBtn) confirmBtn.addEventListener('click', confirmDelete);
 
-  // Close modal on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       pendingDeleteId = null;
@@ -438,13 +391,12 @@ function init() {
 
   if (!authToken) { showPage('landing'); return; }
 
-  // Quick JWT expiry check (works for JWT with 'exp' field)
+  // quick jwt expiry check
   try {
     const payload  = JSON.parse(atob(authToken.split('.')[1]));
     const expired  = payload.exp && Date.now() / 1000 > payload.exp;
     if (expired) { handleLogout(); return; }
   } catch (_) {
-    // Token malformed — clear and show landing
     handleLogout();
     return;
   }

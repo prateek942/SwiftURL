@@ -1,105 +1,72 @@
-# ⚡ SwiftURL — Premium Full-Stack URL Shortener
+# SwiftURL
 
-**SwiftURL** is a fast, responsive, and modern full-stack URL shortener application. It features a stunning glassmorphism Single Page Application (SPA) frontend and a secure Node.js, Express, PostgreSQL, and Drizzle ORM backend. 
+A URL shortener I built with Node.js, Express, PostgreSQL and Drizzle ORM. Has a dark-themed SPA frontend with auth, link management, custom short codes, etc.
 
-Designed with modern web aesthetics, it includes a secure user authentication system, custom shortcodes, interactive link management, and full mobile responsiveness.
+## Stack
 
----
+- **Backend:** Node.js + Express
+- **DB:** PostgreSQL (hosted on Neon) + Drizzle ORM
+- **Auth:** JWT
+- **Validation:** Zod
+- **Frontend:** Vanilla JS/HTML/CSS (no framework)
 
-## ✨ Features
+## Setup
 
-### 🎨 Frontend (Single Page Application)
-- **Glassmorphism UI:** Vibrant, high-end dark theme with smooth gradient animated background orbs.
-- **Custom Modals:** Fully styled animated dialogs replacing generic browser popups for confirmations.
-- **Dynamic SPA Routing:** Fluid page switching without browser reloads.
-- **Link Management:** Shorten long links, copy short URLs with a single click, open links in new tabs, and delete links instantly.
-- **Mobile-Responsive:** Adaptive table layouts that transform into readable cards on smaller screens.
-- **Interactive Toasts:** Real-time feedback alerts for copies, deletions, errors, and successful logins.
-
-### ⚙️ Backend & Database
-- **REST API:** Built with Node.js and Express.
-- **Modern ORM:** High-performance database queries using Drizzle ORM.
-- **Cloud Database:** Integrated with serverless PostgreSQL on Neon.
-- **Secure Authentication:** JSON Web Tokens (JWT) for private endpoint protection and secure session management.
-- **Input Validation:** Request body validation enforced with Zod schemas.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology | Description |
-| :--- | :--- | :--- |
-| **Frontend** | Vanilla JS, HTML5, CSS3 | Custom interactive logic & styling (no bulky frameworks) |
-| **Backend** | Node.js + Express | RESTful API routing and middlewares |
-| **Database** | PostgreSQL | Relational database hosted on Neon |
-| **ORM** | Drizzle ORM | Type-safe queries, schema migration & push |
-| **Auth** | JWT | Secure authorization header verification |
-| **Validation** | Zod | Server-side request body parsing & schema safety |
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
 ```bash
-git clone <your-github-repo-url>
+git clone <your-repo-url>
 cd SwiftURL
-```
-
-### 2. Install dependencies
-```bash
 npm install
 ```
 
-### 3. Setup your Environment Variables
-Create a `.env` file in the root directory:
-```env
+Create a `.env` in the root:
+
+```
 DATABASE_URL=postgresql://<user>:<password>@<host>/<database>?sslmode=require
 JWT_SECRET=your_jwt_secret_key
 PORT=8000
 ```
 
-### 4. Push database schemas to Neon
+Push the DB schema:
+
 ```bash
 npm run db:push
 ```
 
-### 5. Start the server
+Run it:
+
 ```bash
 npm run dev
 ```
-Open **http://localhost:8000** in your browser.
 
----
+Then open http://localhost:8000
 
-## 🔗 API Reference
+## API
 
-### 🔐 Authentication Routes
-| Method | Endpoint | Description | Auth |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/user/signup` | Register a new user | Free |
-| `POST` | `/user/login` | Log in and receive JWT token | Free |
+### Auth
 
-### 🌐 URL Actions
-| Method | Endpoint | Description | Auth |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/shorten` | Shorten a URL (supports optional custom code) | JWT Required |
-| `GET` | `/urls` | Get all URLs created by the user | JWT Required |
-| `DELETE` | `/urls/:id` | Delete a specific shortened link | JWT Required |
-| `GET` | `/:shortcode` | Redirect to target destination URL | Free |
+| Method | Endpoint | What it does |
+| --- | --- | --- |
+| POST | `/user/signup` | Create account |
+| POST | `/user/login` | Get JWT token |
 
----
+### URLs (need JWT)
 
-## 🌐 Live Deployment Guide (Railway + Neon)
+| Method | Endpoint | What it does |
+| --- | --- | --- |
+| POST | `/shorten` | Shorten a URL (optional custom code) |
+| GET | `/urls` | List your URLs |
+| DELETE | `/urls/:id` | Delete a URL |
+| GET | `/:shortcode` | Redirect (no auth needed) |
 
-1. Create a serverless Postgres project on [Neon.tech](https://neon.tech) and copy the connection string.
-2. Update your local `.env` and run `npm run db:push` to construct the tables.
-3. Push your repository to GitHub.
-4. Deploy on [Railway.app](https://railway.app):
-   - Choose **Deploy from GitHub repo**.
-   - Set the variables in the **Variables** settings tab:
-     - `DATABASE_URL` = *(Your Neon Connection String)*
-     - `JWT_SECRET` = *(Generate a secure random string)*
-     - `PORT` = `8000` (Railway automatically binds this)
-5. Under Railway service settings, click **Generate Domain** to get your public live URL (e.g. `https://swifturl.up.railway.app`).
+## Deploying
 
+I used Railway + Neon for this:
+
+1. Set up a Postgres DB on [Neon](https://neon.tech) and grab the connection string
+2. Run `npm run db:push` locally to create the tables
+3. Push to GitHub
+4. On [Railway](https://railway.app), deploy from your repo and set these env vars:
+   - `DATABASE_URL` — your Neon connection string
+   - `JWT_SECRET` — some random secret
+   - `PORT` — `8000`
+5. Generate a domain in Railway's settings and you're live

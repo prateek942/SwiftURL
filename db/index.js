@@ -3,7 +3,8 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
 if (!process.env.DATABASE_URL) {
-  console.error("❌ DATABASE_URL environment variable is not set!");
+  console.error("DATABASE_URL is not set!");
+  process.exit(1);
 }
 
 const pool = new Pool({
